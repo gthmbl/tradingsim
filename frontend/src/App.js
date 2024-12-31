@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react"; //useState manages data from functional component | useEffect runs side effects after component is rendered
 import Portfolio from "./Portfolio";
 import Login from "./Login";
+import Header from "./components/Header111" 
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [stocks, setStocks] = useState([]) // state to hold stock data starting with an empty array
   const [loading, setLoading] = useState(true); // checks whether data is still being fetched, starting as true
   const [error, setError] = useState(null); // state for error messages 
+  const [userName, setUserName] = useState(""); //state for user's name
+  const [accountBalance, setAccountBalance] = useState(0); //account balance 
 
   //validate token on inital load
 
@@ -29,6 +32,9 @@ function App() {
         throw new Error("Token validation failed");
       }
 
+      const data = await response.json();
+      setUserName(data.name);
+      setAccountBalance(data.balance); 
       setIsLoggedIn(true);
     } catch (err) {
       console.error(err.message);
@@ -94,12 +100,11 @@ function App() {
   // Main render logic
   return (
     <div>
-      <header>
-        <h1>Trading Simulation App</h1>
-        <button onClick={handleLogout} style={{ marginLeft: "20px" }}>
-          Logout
-        </button>
-      </header>
+      <Header
+        portfolioName={`${userName}'s Portfolio`} // Dynamically pass portfolio name
+        accountBalance={accountBalance} // Dynamically pass account balance
+        onLogout={handleLogout} // Pass logout handler
+      />
       {loading ? (
         <div>Loading...</div>
       ) : error ? (
