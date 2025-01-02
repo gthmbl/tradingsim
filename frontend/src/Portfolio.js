@@ -9,7 +9,7 @@ import {
   formatCurrency,
 } from "./utils/calculate";
 
-const Portfolio = () => {
+const Portfolio = ({ accountBalance, setAccountBalance }) => {
   const [portfolio, setPortfolio] = useState([]);
   const [tradeHistory, setTradeHistory] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -147,7 +147,7 @@ const Portfolio = () => {
       }
 
       const { newBalance } = await response.json();
-      setBalance(newBalance);
+      setAccountBalance(newBalance);
       fetchPortfolio();
       fetchTradeHistory();
       alert(`Bought ${quantity} shares of ${symbol}.`);
@@ -187,7 +187,7 @@ const Portfolio = () => {
       }
 
       const { newBalance } = await response.json();
-      setBalance(newBalance);
+      setAccountBalance(newBalance);
       fetchPortfolio();
       fetchTradeHistory();
       alert(`Sold ${sellQuantity} shares of ${selectedStock.stock_symbol}.`);

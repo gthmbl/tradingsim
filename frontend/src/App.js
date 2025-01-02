@@ -10,6 +10,7 @@ function App() {
   const [error, setError] = useState(null); // state for error messages 
   const [username, setUsername] = useState(""); //state for user's name
   const [accountBalance, setAccountBalance] = useState(0); //account balance 
+  const [portfolio, setPortfolio] = useState([]);
 
   //validate token on inital load
 
@@ -35,7 +36,8 @@ function App() {
 
       const data = await response.json();
       setUsername(data.username);
-      setAccountBalance(data.balance); 
+      setAccountBalance(data.balance);
+      setPortfolio(data.portfolio); 
       setIsLoggedIn(true);
     } catch (err) {
       console.error(err.message);
@@ -102,6 +104,7 @@ function App() {
     return <Login onLoginSuccess={handleLoginSuccess} />;
   }
 
+  
   const portfolioName = username ? `${username}'s Portfolio` : "Portfolio";
 
   // Main render logic
@@ -118,7 +121,12 @@ function App() {
         <div>Error: {error}</div>
       ) : (
         <>
-          <Portfolio />
+          <Portfolio 
+          portfolio={portfolio}
+          setPortfolio={setPortfolio}
+          accountBalance={accountBalance}
+          setAccountBalance={setAccountBalance}
+        />
           <table>
             <thead>
               <tr>
