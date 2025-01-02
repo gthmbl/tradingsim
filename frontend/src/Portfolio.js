@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from "react";
-import AccountBalance from "./components/AccountBalance";
 import SearchBar from "./components/SearchBar";
 import StockInformation from "./components/StockInformation";
 import PortfolioTable from "./components/PortfolioTable";
@@ -22,7 +21,6 @@ const Portfolio = () => {
   const [quantity, setQuantity] = useState(1);
   const [selectedStock, setSelectedStock] = useState(null);
   const [sellQuantity, setSellQuantity] = useState(1);
-  const [balance, setBalance] = useState(0);
 
   // Fetch portfolio
   const fetchPortfolio = async () => {
@@ -38,7 +36,6 @@ const Portfolio = () => {
 
       const { portfolio, balance } = await response.json();
       setPortfolio(portfolio);
-      setBalance(Number(balance));
     } catch (err) {
       setError(err.message);
     } finally {
@@ -211,8 +208,6 @@ const Portfolio = () => {
 
   return (
     <div>
-      <h2>Portfolio</h2>
-      <AccountBalance balance={balance} />
       <SearchBar
         searchSymbol={searchSymbol}
         setSearchSymbol={(value) => {
@@ -254,6 +249,6 @@ const Portfolio = () => {
       />
     </div>
   );
-};
+}
 
 export default Portfolio;

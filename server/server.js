@@ -142,7 +142,7 @@ app.post("/api/login", async (req, res) => {
         //check if user exists
         const [user] = await db.query("SELECT * FROM users WHERE email = ?", [email]);
         if (user.length === 0) {
-            return res.status(404).json({ error: "User not found" });
+            return res.status(404).json({ error: "User not found" }); 
         }
 
         const userData = user[0]; //get user data
@@ -154,7 +154,7 @@ app.post("/api/login", async (req, res) => {
 
         //generate token 
         const token = jwt.sign(
-            { id: userData.id, email: userData.email }, //payload
+            { id: userData.id, email: userData.email, username: userData.username }, //payload
             process.env.JWT_SECRET, //access secret key from .env
             { expiresIn: "1h" } //token validity 
         );
@@ -162,6 +162,7 @@ app.post("/api/login", async (req, res) => {
         res.status(200).json({
             message: "Login succesful",
             userId: userData.id,
+            username: userData.username,
             token: token,
         });
     }   catch (err) {
@@ -175,12 +176,16 @@ app.get("/api/portfolio", authenticateToken, async (req, res) => {
     try {
         const userId = req.user.id;
 
+        // Fetch user balance and username
+        const [user] = await db.query("SELECT username, balance FROM users WHERE id = ?", [userId]);
+        if (user.length === 0) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        const { username, balance } = user[0];
+
         // Fetch portfolio
         const [portfolio] = await db.query("SELECT * FROM portfolio WHERE user_id = ?", [userId]);
-
-        // Fetch user balance
-        const [user] = await db.query("SELECT balance FROM users WHERE id = ?", [userId]);
-        const balance = user.length > 0 ? parseFloat(user[0].balance) : 0;
 
         if (portfolio.length > 0) {
             // Get stock symbols
@@ -206,18 +211,15 @@ app.get("/api/portfolio", authenticateToken, async (req, res) => {
                 item.quantity = parseInt(item.quantity, 10) || 0; // Convert to integer
                 item.current_price = stockPrices[item.stock_symbol] || null;
             });
-            
-            
         }
 
-        // Send the response only once
-        return res.status(200).json({ portfolio, balance });
+        // Send the response
+        return res.status(200).json({ portfolio, balance, username }); // Include username in the response
     } catch (err) {
         console.error("Error fetching portfolio and balance:", err.message);
         return res.status(500).json({ error: "An error occurred while fetching portfolio." });
     }
 });
-
 
 // Autocomplete endpoint
 app.get("/api/autocomplete", authenticateToken, async (req, res) => {

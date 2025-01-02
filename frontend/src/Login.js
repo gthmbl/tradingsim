@@ -28,7 +28,11 @@ const Login = ({ onLoginSuccess }) => {
 
       const data = await response.json();
       localStorage.setItem("token", data.token); // Save token to localStorage
-      onLoginSuccess(); // Notify parent component
+      setUsername(data.username || ""); // Safely set username
+      onLoginSuccess({
+        username: data.username || "", // Pass username safely
+        balance: data.balance || 0, // Pass balance safely
+      });
     } catch (err) {
       setError(err.message);
     } finally {

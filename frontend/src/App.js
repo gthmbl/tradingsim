@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react"; //useState manages data from functional component | useEffect runs side effects after component is rendered
 import Portfolio from "./Portfolio";
 import Login from "./Login";
-import Header from "./components/Header111" 
+import Header from "./components/Header" 
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [stocks, setStocks] = useState([]) // state to hold stock data starting with an empty array
   const [loading, setLoading] = useState(true); // checks whether data is still being fetched, starting as true
   const [error, setError] = useState(null); // state for error messages 
-  const [userName, setUserName] = useState(""); //state for user's name
+  const [username, setUsername] = useState(""); //state for user's name
   const [accountBalance, setAccountBalance] = useState(0); //account balance 
 
   //validate token on inital load
@@ -19,6 +19,7 @@ function App() {
 
     if (!token) {
       console.log("No token found in localStorage");
+      localStorage.clear();
       setIsLoggedIn(false);
       return; 
     }
@@ -33,7 +34,7 @@ function App() {
       }
 
       const data = await response.json();
-      setUserName(data.name);
+      setUsername(data.username);
       setAccountBalance(data.balance); 
       setIsLoggedIn(true);
     } catch (err) {
@@ -48,15 +49,19 @@ function App() {
 
   //function handles login success
   
-  const handleLoginSuccess = () => {
+  const handleLoginSuccess = (response) => {
     setIsLoggedIn(true); //update login state
+    setUsername(response.username);
+    setAccountBalance(response.balance);
   };
 
   //handle logout 
   const handleLogout = () => {
     localStorage.removeItem("token"); //clear token
     setIsLoggedIn(false); //resets login state
-  }
+    setUsername("");
+    setAccountBalance(0);
+  };
 
   //fetching data
   useEffect(() => { //useEffect runs code inside it after component is rendered (fetches stock data from server)
@@ -97,11 +102,13 @@ function App() {
     return <Login onLoginSuccess={handleLoginSuccess} />;
   }
 
+  const portfolioName = username ? `${username}'s Portfolio` : "Portfolio";
+
   // Main render logic
   return (
     <div>
       <Header
-        portfolioName={`${userName}'s Portfolio`} // Dynamically pass portfolio name
+        portfolioName={username ? `${username}'s Portfolio` : "Portfolio"} // Dynamically pass username
         accountBalance={accountBalance} // Dynamically pass account balance
         onLogout={handleLogout} // Pass logout handler
       />
