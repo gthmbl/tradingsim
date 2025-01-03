@@ -416,6 +416,10 @@ app.post("/api/buy-stock", authenticateToken, async (req, res) => {
     } 
   });
 
+
+  const marketRoute = require('./market'); // Adjust path as needed
+    app.use('/api', marketRoute);
+
   //starts the server, listening for incoming requests on port 3000, logging confirmation to console. 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);

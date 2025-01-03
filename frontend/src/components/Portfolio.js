@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
+import axios from 'axios';
 import SearchBar from "./SearchBar";
 import StockInformation from "./StockInformation";
 import PortfolioTable from "./PortfolioTable";
@@ -9,6 +10,8 @@ import {
   formatCurrency,
 } from "../utils/calculate";
 import { TopStocksInfo } from "./TopStocksInfo";
+import TopPerformingStocks from "./TopPerformingStocks";
+
 // import "../Portfolio.css"
 
 const Portfolio = ({ accountBalance, setAccountBalance, topStocks }) => {
@@ -23,7 +26,29 @@ const Portfolio = ({ accountBalance, setAccountBalance, topStocks }) => {
   const [quantity, setQuantity] = useState(1);
   const [selectedStock, setSelectedStock] = useState(null);
   const [sellQuantity, setSellQuantity] = useState(1);
+  const [topPerformingStocks, setTopPerformingStocks] = useState([]);
+  const [topStocksError, setTopStocksError] = useState(null);
 
+  //fetch top performing stocks 
+
+  const fetchTopPerformingStocks = async () => {
+    const options = {
+      method: "GET",
+      url: "http://localhost:3000/api/top-performing",
+    };
+    
+  
+    try {
+      const response = await axios.request(options);
+      console.log("API Response:", response.data);
+      setTopPerformingStocks(response.data.finance.result[0].quotes || []);
+    } catch (err) {
+      console.error("Error fetching top performing stocks:", err);
+      setTopStocksError("Failed to load top performing stocks");
+    }
+  };
+  
+  
   // Fetch portfolio
   const fetchPortfolio = async () => {
     try {
@@ -205,6 +230,7 @@ const Portfolio = ({ accountBalance, setAccountBalance, topStocks }) => {
   useEffect(() => {
     fetchPortfolio();
     fetchTradeHistory();
+    fetchTopPerformingStocks(); 
   }, [fetchTradeHistory]);
 
   if (loading) return <div>Loading portfolio...</div>;
@@ -237,6 +263,11 @@ const Portfolio = ({ accountBalance, setAccountBalance, topStocks }) => {
       )}
 
       <TopStocksInfo stocks={topStocks} />
+
+      <TopPerformingStocks
+  performingStocks={topPerformingStocks}
+  error={topStocksError}
+/>
       </div>
 
   <div className="middle-column">
