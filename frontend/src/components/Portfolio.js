@@ -1,15 +1,17 @@
 import React, { useState, useEffect, useCallback } from "react";
-import SearchBar from "./components/SearchBar";
-import StockInformation from "./components/StockInformation";
-import PortfolioTable from "./components/PortfolioTable";
-import TradeHistory from "./components/TradeHistory";
+import SearchBar from "./SearchBar";
+import StockInformation from "./StockInformation";
+import PortfolioTable from "./PortfolioTable";
+import TradeHistory from "./TradeHistory";
 import {
   calculateUnrealizedPnL,
   calculatePriceChange,
   formatCurrency,
-} from "./utils/calculate";
+} from "../utils/calculate";
+import { TopStocksInfo } from "./TopStocksInfo";
+// import "../Portfolio.css"
 
-const Portfolio = ({ accountBalance, setAccountBalance }) => {
+const Portfolio = ({ accountBalance, setAccountBalance, topStocks }) => {
   const [portfolio, setPortfolio] = useState([]);
   const [tradeHistory, setTradeHistory] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -104,7 +106,9 @@ const Portfolio = ({ accountBalance, setAccountBalance }) => {
     try {
       const token = localStorage.getItem("token");
       const stockResponse = await fetch(
-        `http://localhost:3000/api/stocks?symbols=${searchSymbol.trim().toUpperCase()}`,
+        `http://localhost:3000/api/stocks?symbols=${searchSymbol
+          .trim()
+          .toUpperCase()}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -207,7 +211,8 @@ const Portfolio = ({ accountBalance, setAccountBalance }) => {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div>
+    <div className="content-grid">
+      <div className="left-column">
       <SearchBar
         searchSymbol={searchSymbol}
         setSearchSymbol={(value) => {
@@ -231,6 +236,10 @@ const Portfolio = ({ accountBalance, setAccountBalance }) => {
         />
       )}
 
+      <TopStocksInfo stocks={topStocks} />
+      </div>
+
+  <div className="middle-column">
       <PortfolioTable
         portfolio={portfolio}
         selectedStock={selectedStock}
@@ -242,13 +251,17 @@ const Portfolio = ({ accountBalance, setAccountBalance }) => {
         calculateUnrealizedPnL={calculateUnrealizedPnL}
         formatCurrency={formatCurrency}
       />
+
+  </div>
+  <div className="right-column">
       <TradeHistory
         tradeHistory={tradeHistory}
         showTradeHistory={showTradeHistory}
         setShowTradeHistory={setShowTradeHistory}
       />
+      </div>
     </div>
   );
-}
+};
 
 export default Portfolio;

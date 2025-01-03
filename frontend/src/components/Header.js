@@ -1,28 +1,23 @@
 import React from "react";
 
 const Header = ({ portfolioName = "Portfolio", accountBalance = 0, onLogout }) => {
-  
   const numericBalance = parseFloat(accountBalance) || 0;
 
   return (
-    <header className="flex justify-between items-center px-6 py-4 bg-gray-100 shadow-md">
-      <div>
-        <h1 className="text-2xl font-bold text-gray-800">Trading Simulator</h1>
+    <div className="header">
+      <div className="title">
+        <h1>Trading Simulator</h1>
       </div>
-      <div className="text-right">
-        <h2 className="text-xl font-semibold">{portfolioName || "Portfolio"}</h2>
-        <p className="text-gray-600">
-          Account Balance:{" "}
-          <span className="font-bold text-green-500">${numericBalance.toFixed(2)}</span>
-        </p>
+      <div className="portfolio-name">
+        <h1>{portfolioName}</h1>
       </div>
-      <button
-        onClick={onLogout}
-        className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
-      >
-        Logout
-      </button>
-    </header>
+      <div className="account-info">
+        <button className="logout-btn" onClick={onLogout}>
+          Logout
+        </button>
+        <h2>Account Balance: ${numericBalance.toFixed(2)}</h2>
+      </div>
+    </div>
   );
 };
 

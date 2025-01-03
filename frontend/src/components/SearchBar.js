@@ -35,9 +35,7 @@ const SearchBar = ({
               cursor: "pointer",
               padding: "5px 10px",
               borderBottom:
-                index === suggestions.length - 1
-                  ? "none"
-                  : "1px solid #ccc",
+                index === suggestions.length - 1 ? "none" : "1px solid #ccc",
             }}
           >
             <strong>{suggestion.symbol}</strong> - {suggestion.name}
