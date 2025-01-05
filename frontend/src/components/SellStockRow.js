@@ -1,4 +1,5 @@
 import React from "react";
+import "../ButtonStyles.css";
 
 const SellStockRow = ({
   quantity,
@@ -9,7 +10,7 @@ const SellStockRow = ({
 }) => (
   <tr>
     <td colSpan="7">
-      <div style={{ display: "flex", alignItems: "center" }}>
+      <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
         <label>
           Quantity to Sell:
           <input
@@ -22,28 +23,15 @@ const SellStockRow = ({
           />
         </label>
         <button
-  onClick={handleSellStock}
-  disabled={sellQuantity < 1 || sellQuantity > selectedStock.quantity}
-  style={{
-    marginLeft: "10px",
-    backgroundColor:
-      sellQuantity < 1 || sellQuantity > selectedStock.quantity
-        ? "#ccc"
-        : "#007bff",
-    color: "white",
-    cursor:
-      sellQuantity < 1 || sellQuantity > selectedStock.quantity
-        ? "not-allowed"
-        : "pointer",
-  }}
->
-  Sell
-</button>
-
+          className={`button button-danger`}
+          onClick={handleSellStock}
+          disabled={sellQuantity < 1 || sellQuantity > selectedStock.quantity}
+        >
+          Sell
+        </button>
       </div>
     </td>
   </tr>
 );
 
 export default SellStockRow;
-

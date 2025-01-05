@@ -1,20 +1,15 @@
 import React from "react";
+import "../ButtonStyles.css";
+import "../App.css";
 
 const TradeHistory = ({ tradeHistory, showTradeHistory, setShowTradeHistory }) => (
-  <div>
+  <div className = "trade-history">
     <h2 style={{ marginTop: "40px" }}>
       Trade History
       <button
+        className="button button-primary"
         onClick={() => setShowTradeHistory((prev) => !prev)}
-        style={{
-          marginLeft: "10px",
-          padding: "5px 10px",
-          cursor: "pointer",
-          backgroundColor: "#007bff",
-          color: "white",
-          border: "none",
-          borderRadius: "5px",
-        }}
+        style={{ marginLeft: "10px" }}
       >
         {showTradeHistory ? "Hide" : "Show"}
       </button>

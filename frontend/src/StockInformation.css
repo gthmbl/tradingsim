@@ -1,0 +1,53 @@
+/* Container for stock information */
+.stock-info-card {
+    padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    border-radius: 8px;
+    background-color: #1a1a1a;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: #ffffff;
+    font-family: "Arial", sans-serif;
+  }
+  
+  /* Title */
+  .stock-info-title {
+    margin-bottom: 20px;
+    font-size: 20px; /* Increased font size */
+    font-weight: 700; /* Bold title */
+    border-bottom: 1px solid #3a3a3a;
+    padding-bottom: 5px;
+  }
+  
+  /* Individual stock information items */
+  .stock-info-item {
+    margin: 10px 0;
+    font-size: 16px; /* Increased font size for readability */
+    font-weight: 500;
+  }
+  
+  /* Action section (quantity input and buy button) */
+  .stock-info-action {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  /* Input field for quantity */
+  .stock-info-input {
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #3a3a3a;
+    background-color: #2e2e2e;
+    color: #ffffff;
+    width: 80px;
+    text-align: center;
+    font-size: 16px;
+  }
+  
+  /* Label for quantity */
+  .stock-info-label {
+    font-size: 16px;
+    font-weight: 500
+  }

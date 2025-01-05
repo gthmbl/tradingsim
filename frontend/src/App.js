@@ -3,6 +3,7 @@ import Portfolio from "./components/Portfolio";
 import Login from "./Login";
 import Header from "./components/Header";
 import "./App.css";
+import './ButtonStyles.css';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -77,7 +78,7 @@ function App() {
       try {
         const token = localStorage.getItem("token"); //get token from localStorage
         const response = await fetch(
-          "http://localhost:3000/api/stocks?symbols=AAPL,MSFT,TSLA,GOOG",
+          "http://localhost:3000/api/stocks?symbols=AAPL,MSFT,TSLA,GOOG,AMZN,NFLX,META",
           {
             headers: { Authorization: `Bearer ${token}` },
           }

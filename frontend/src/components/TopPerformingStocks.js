@@ -1,8 +1,8 @@
 const TopPerformingStocks = ({ performingStocks = [], error }) => {
     console.log("Performing Stocks:", performingStocks); // Log for debugging
     return (
-      <div className="top-performing-stocks">
-        <h3>Top Performing Stocks</h3>
+      <div className="card">
+        <h3>Top Performing ETFs</h3>
         {error ? (
           <p>{error}</p>
         ) : performingStocks.length > 0 ? (
@@ -12,7 +12,7 @@ const TopPerformingStocks = ({ performingStocks = [], error }) => {
                 <th>Symbol</th>
                 <th>Name</th>
                 <th>Price</th>
-                <th>% Change</th>
+                <th>Change</th>
               </tr>
             </thead>
             <tbody>

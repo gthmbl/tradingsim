@@ -1,4 +1,5 @@
 import React from "react";
+import ThemeToggle from "./ThemeToggle"; // Import the ThemeToggle component
 
 const Header = ({ portfolioName = "Portfolio", accountBalance = 0, onLogout }) => {
   const numericBalance = parseFloat(accountBalance) || 0;
@@ -12,10 +13,11 @@ const Header = ({ portfolioName = "Portfolio", accountBalance = 0, onLogout }) =
         <h1>{portfolioName}</h1>
       </div>
       <div className="account-info">
+        <h2>Account Balance: ${numericBalance.toFixed(2)}</h2>
         <button className="logout-btn" onClick={onLogout}>
           Logout
         </button>
-        <h2>Account Balance: ${numericBalance.toFixed(2)}</h2>
+        <ThemeToggle /> {/* Added theme toggle button */}
       </div>
     </div>
   );

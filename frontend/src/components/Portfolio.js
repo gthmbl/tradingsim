@@ -239,6 +239,7 @@ const Portfolio = ({ accountBalance, setAccountBalance, topStocks }) => {
   return (
     <div className="content-grid">
       <div className="left-column">
+        <div className="search-bar">
       <SearchBar
         searchSymbol={searchSymbol}
         setSearchSymbol={(value) => {
@@ -252,6 +253,7 @@ const Portfolio = ({ accountBalance, setAccountBalance, topStocks }) => {
           setSuggestions([]);
         }}
       />
+      </div>
 
       {searchedStock && (
         <StockInformation

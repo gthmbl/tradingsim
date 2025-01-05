@@ -24,7 +24,6 @@ const PortfolioTable = ({
         <th>Current Price</th>
         <th>Price Change </th>
         <th>Unrealized Profit/Loss</th>
-        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -55,13 +54,11 @@ const PortfolioTable = ({
                     : item
                 )
               }
-              style={{
-                cursor: "pointer",
-                backgroundColor:
-                  selectedStock?.stock_symbol === item.stock_symbol
-                    ? "#f0f0f0"
-                    : "transparent",
-              }}
+              className={`portfolio-row ${
+                selectedStock?.stock_symbol === item.stock_symbol
+                  ? "selected"
+                  : ""
+              }`}
             >
               <td>{item.stock_symbol || item.symbol}</td>
               <td>{quantity || "N/A"}</td>
@@ -77,9 +74,9 @@ const PortfolioTable = ({
               <td style={{ color: getTextColor(isProfit), fontWeight: "bold" }}>
                 {unrealizedPnL !== "NaN" ? `$${unrealizedPnL}` : "$0.00"}
               </td>
-
               <td>Click to Sell</td>
             </tr>
+
             {selectedStock?.stock_symbol === item.stock_symbol && (
               <SellStockRow
                 quantity={quantity}
