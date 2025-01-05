@@ -4,7 +4,7 @@ const axios = require("axios"); //library for making HTTP requests to Yahoo fina
 const cors = require("cors"); //Handles cross origin requests between front & backend
 require("dotenv").config(); //reads enviornment variables from .env file (API key) making them available here
 
-const app = express(); //creates instance of the Express app, used to define routes and handle requests
+const app = express(); //used to define routes and handle requests
 const PORT = 3000; //specifies the port where our server will listen for incoming requests. 
 const API_KEY = process.env.YAHOO_API_KEY; //loads API key from .env file and stores it in API_KEY variable
 console.log("API Key Loaded", API_KEY); //outputs the API key to the console to check it loaded correctly
