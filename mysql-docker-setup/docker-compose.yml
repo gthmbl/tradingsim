@@ -15,6 +15,21 @@ services:
     networks:
       - local_network
 
+  node:
+    build: ../server    # path to the Dockerfile inside 'server/' if you're running compose from 'mysql-docker-setup'
+    container_name: my_node_app
+    ports:
+      - "80:3000"       # map host port 80 → container port 3000
+    environment:
+      DB_HOST: mysql
+      DB_USER: my_user
+      DB_PASSWORD: my_password
+      DB_NAME: my_database
+    depends_on:
+      - mysql
+    networks:
+      - local_network
+      
 volumes:
   mysql_data:
 
