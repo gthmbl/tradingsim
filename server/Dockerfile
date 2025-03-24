@@ -7,6 +7,8 @@ WORKDIR /usr/src/app
 # Copy package.json and lockfile
 COPY ./package*.json ./
 
+RUN ls -la
+
 # Install dependencies
 RUN yarn install
 
