@@ -1,0 +1,22 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_local
+    ports:
+      - "3316:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password_here
+      MYSQL_DATABASE: my_database
+      MYSQL_USER: my_user
+      MYSQL_PASSWORD: my_password
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./seed-scripts:/docker-entrypoint-initdb.d  # Mount seed scripts
+    networks:
+      - local_network
+
+volumes:
+  mysql_data:
+
+networks:
+  local_network:
