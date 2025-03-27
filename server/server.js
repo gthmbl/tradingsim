@@ -458,5 +458,5 @@ app.use("/api", marketRoute);
 
 //starts the server, listening for incoming requests on port 3000, logging confirmation to console.
 app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Server is running on http://0.0.0.0:${PORT}`);
 });
