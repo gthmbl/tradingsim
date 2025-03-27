@@ -15,7 +15,7 @@ const Login = ({ onLoginSuccess }) => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const response = await fetch("http://localhost:3000/api/login", {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -49,7 +49,7 @@ const Login = ({ onLoginSuccess }) => {
     }
     setIsLoading(true);
     try {
-      const response = await fetch("http://localhost:3000/api/register", {
+      const response = await fetch("http://18.130.231.134:5000/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, email, password }),

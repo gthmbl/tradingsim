@@ -2,7 +2,7 @@ const mysql = require("mysql2");
 
 // creating conncetion pool with promises enabled
 const pool = mysql.createPool({
-  host: "localhost", // server host
+  host: process.env.DB_HOST, // server host
   port: 3316,
   user: "my_user", // MySQL username
   password: "my_password",

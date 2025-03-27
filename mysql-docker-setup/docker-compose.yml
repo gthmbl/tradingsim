@@ -18,7 +18,8 @@ services:
       - local_network
 
   node:
-    build: ../server    # path to the Dockerfile inside 'server/' if you're running compose from 'mysql-docker-setup'
+    build:
+      context: ../server    # path to the Dockerfile inside 'server/' if you're running compose from 'mysql-docker-setup'
     container_name: my_node_app
     ports:
       - "80:3000"       # map host port 80 → container port 3000

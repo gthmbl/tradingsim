@@ -12,7 +12,7 @@ console.log("API Key Loaded", API_KEY); //outputs the API key to the console to 
 //Middleware functions execute everytime the server receives a request before it reaches route handlers
 app.use(
   cors({
-    origin: "http://localhost:3008",
+    origin: process.env.CLIENT_ORIGIN,
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })

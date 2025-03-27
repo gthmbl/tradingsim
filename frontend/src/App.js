@@ -28,7 +28,7 @@ function App() {
       }
 
       try {
-        const response = await fetch("http://localhost:3000/api/portfolio", {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/portfolio`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -78,7 +78,7 @@ function App() {
       try {
         const token = localStorage.getItem("token"); //get token from localStorage
         const response = await fetch(
-          "http://localhost:3000/api/stocks?symbols=AAPL,MSFT,TSLA,GOOG,AMZN,NFLX,META",
+          `${process.env.REACT_APP_API_URL}/api/stocks?symbols=AAPL,MSFT,TSLA,GOOG,AMZN,NFLX,META`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }

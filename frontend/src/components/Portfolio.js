@@ -34,7 +34,7 @@ const Portfolio = ({ accountBalance, setAccountBalance, topStocks }) => {
   const fetchTopPerformingStocks = async () => {
     const options = {
       method: "GET",
-      url: "http://localhost:3000/api/top-performing",
+      url: `${process.env.REACT_APP_API_URL}/api/top-performing`,
     };
     
   
@@ -53,7 +53,7 @@ const Portfolio = ({ accountBalance, setAccountBalance, topStocks }) => {
   const fetchPortfolio = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:3000/api/portfolio", {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/portfolio`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -80,7 +80,7 @@ const Portfolio = ({ accountBalance, setAccountBalance, topStocks }) => {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `http://localhost:3000/api/autocomplete?query=${query}`,
+        `${process.env.REACT_APP_API_URL}/api/autocomplete?query=${query}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -106,7 +106,7 @@ const Portfolio = ({ accountBalance, setAccountBalance, topStocks }) => {
   const fetchTradeHistory = useCallback(async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:3000/api/trade-history", {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/trade-history`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -131,7 +131,7 @@ const Portfolio = ({ accountBalance, setAccountBalance, topStocks }) => {
     try {
       const token = localStorage.getItem("token");
       const stockResponse = await fetch(
-        `http://localhost:3000/api/stocks?symbols=${searchSymbol
+        `${process.env.REACT_APP_API_URL}/api/stocks?symbols=${searchSymbol
           .trim()
           .toUpperCase()}`,
         {
@@ -162,7 +162,7 @@ const Portfolio = ({ accountBalance, setAccountBalance, topStocks }) => {
 
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:3000/api/buy-stock", {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/buy-stock`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -199,7 +199,7 @@ const Portfolio = ({ accountBalance, setAccountBalance, topStocks }) => {
 
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:3000/api/sell-stock", {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/sell-stock`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
