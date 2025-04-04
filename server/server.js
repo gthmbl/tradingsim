@@ -2,7 +2,7 @@ const express = require("express"); //framework simplifies building server in no
 const bodyParser = require("body-parser"); //parses incoming request bodies into JSON
 const axios = require("axios"); //library for making HTTP requests to Yahoo finance API
 const cors = require("cors"); //Handles cross origin requests between front & backend
-require("dotenv").config(); //reads enviornment variables from .env file (API key) making them available here
+//require("dotenv").config(); //reads enviornment variables from .env file (API key) making them available here
 
 const app = express(); //used to define routes and handle requests
 const PORT = 3000; //specifies the port where our server will listen for incoming requests.

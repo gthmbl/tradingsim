@@ -4,10 +4,11 @@ services:
   mysql:
     image: mysql:8.0
     container_name: mysql_local
+    restart: always
     ports:
       - "3316:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: root_password_here
+      MYSQL_ROOT_PASSWORD: newstrongpassword
       MYSQL_DATABASE: my_database
       MYSQL_USER: my_user
       MYSQL_PASSWORD: my_password
@@ -21,13 +22,17 @@ services:
     build:
       context: ../server    # path to the Dockerfile inside 'server/' if you're running compose from 'mysql-docker-setup'
     container_name: my_node_app
+    restart: always
     ports:
-      - "80:3000"       # map host port 80 → container port 3000
+      - "3000:3000"       # map host port 80 → container port 3000
     environment:
       DB_HOST: mysql
       DB_USER: my_user
       DB_PASSWORD: my_password
       DB_NAME: my_database
+      JWT_SECRET: "mysupersecretkey"
+      YAHOO_API_KEY: "235e110353mshc72a3f7b6144887p12c3c4jsnfc619e16af5a"
+      CLIENT_ORIGIN: http://18.130.231.134:8080
     depends_on:
       - mysql
     networks:
